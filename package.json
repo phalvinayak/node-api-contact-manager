@@ -1,0 +1,44 @@
+{
+  "name": "node-api-contact-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node ./src/server.ts",
+    "dev": "ts-node-dev --respawn ./src/server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phalvinayak/node-api-contact-manager.git"
+  },
+  "keywords": [
+    "node-api",
+    "contact-management",
+    "mongodb"
+  ],
+  "author": "Vinayak Phal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/phalvinayak/node-api-contact-manager/issues"
+  },
+  "homepage": "https://github.com/phalvinayak/node-api-contact-manager#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongodb": "^5.5.0",
+    "mongoose": "^7.2.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/express": "^4.17.17",
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/node": "^20.2.1",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.0.4"
+  }
+}
