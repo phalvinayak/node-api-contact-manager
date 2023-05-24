@@ -1,5 +1,5 @@
 import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
-import { HTTP_STATUS } from "../models/enum/httpError.enmu";
+import { HTTP_STATUS } from "@src/models/enum/httpError.enmu";
 
 type CustomError = {
   message?: string;
@@ -8,47 +8,41 @@ type CustomError = {
 
 const errorHandler = (
   err: CustomError,
-  req: Request,
+  _req: Request,
   res: Response,
   next: NextFunction
 ) => {
   const statusCode = res.statusCode ? res.statusCode : 500;
+  let title: string = "";
+  let exception: boolean = true;
   switch (statusCode) {
     case HTTP_STATUS.VALIDATION_ERROR:
-      res.json({
-        title: "Validation Failed",
-        message: err.message,
-        stackTrace: err.stack,
-      });
+      title = "Validation Failed";
       break;
     case HTTP_STATUS.NOT_FOUND:
-      res.json({
-        title: "Not Found",
-        message: err.message,
-        stackTrace: err.stack,
-      });
-    case HTTP_STATUS.UNAUTHORIZED:
-      res.json({
-        title: "Unauthorized",
-        message: err.message,
-        stackTrace: err.stack,
-      });
-    case HTTP_STATUS.FORBIDDEN:
-      res.json({
-        title: "Forbidden",
-        message: err.message,
-        stackTrace: err.stack,
-      });
-    case HTTP_STATUS.SERVER_ERROR:
-      res.json({
-        title: "Server Error",
-        message: err.message,
-        stackTrace: err.stack,
-      });
-    default:
-      console.log("No Error, All good !");
+      title = "Not Found";
       break;
+    case HTTP_STATUS.UNAUTHORIZED:
+      title = "Unauthorized";
+      break;
+    case HTTP_STATUS.FORBIDDEN:
+      title = "Forbidden";
+      break;
+    case HTTP_STATUS.SERVER_ERROR:
+      title = "Server Error";
+      break;
+    default:
+      exception = false;
+      next();
+      break;
+  }
+  if (exception) {
+    res.json({
+      title,
+      message: err.message,
+      stackTrace: err.stack,
+    });
   }
 };
 
-module.exports = errorHandler;
+export default errorHandler;

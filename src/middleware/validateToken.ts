@@ -1,8 +1,8 @@
-import { ACCESS_TOKEN_SECRET } from "../config/evn.config";
+import { ACCESS_TOKEN_SECRET } from "@src/config/evn.config";
 import { Request, Response, NextFunction } from "express";
 import asyncHandler from "express-async-handler";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { AuthRequest } from "../models/types/types";
+import { AuthRequest } from "@src/models/types/types";
 
 const validateToken = asyncHandler(
   async (req: AuthRequest, res: Response, next: NextFunction) => {

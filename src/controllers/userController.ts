@@ -2,9 +2,9 @@ import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import UserModel from "../models/mongo/userModel";
-import { AuthRequest, User } from "../models/types/types";
-import { ACCESS_TOKEN_SECRET } from "../config/evn.config";
+import UserModel from "@src/models/schema/userModel";
+import { AuthRequest, User } from "@src/models/types/types";
+import { ACCESS_TOKEN_SECRET } from "@src/config/evn.config";
 
 // @desc Register User
 // @route POST /api/users/register
@@ -61,7 +61,7 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
         },
       },
       ACCESS_TOKEN_SECRET,
-      { expiresIn: "1m" }
+      { expiresIn: "15m" }
     );
     res.json({ accessToken });
   } else {

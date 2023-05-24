@@ -1,9 +1,9 @@
-import validateToken from "../middleware/validateToken";
+import validateToken from "@src/middleware/validateToken";
 import {
   currentUser,
   loginUser,
   registerUser,
-} from "../controllers/userController";
+} from "@src/controllers/userController";
 import { Router } from "express";
 
 const userRouter = Router();

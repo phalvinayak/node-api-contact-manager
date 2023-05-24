@@ -5,8 +5,8 @@ import {
   deleteContact,
   getAllContact,
   updateContact,
-} from "../controllers/contactController";
-import validateToken from "../middleware/validateToken";
+} from "@src/controllers/contactController";
+import validateToken from "@src/middleware/validateToken";
 
 const contactRouter = Router();
 
