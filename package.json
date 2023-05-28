@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node -r tsconfig-paths/register ./src/server.ts",
+    "build": "rimraf ./dist && tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
+    "start": "node ./dist/server.js",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn ./src/server.ts"
   },
   "repository": {
@@ -37,8 +38,10 @@
     "@types/express": "^4.17.17",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "^20.2.1",
+    "rimraf": "^5.0.1",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
+    "tsc-alias": "^1.8.6",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
   }
