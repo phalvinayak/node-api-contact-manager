@@ -1,3 +1,4 @@
+import { UserDocument } from "@models/schema/userModel";
 import mongoose from "mongoose";
 
 const contactSchema = new mongoose.Schema(
@@ -25,4 +26,16 @@ const contactSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("Contact", contactSchema);
+export interface ContactInput {
+  user: UserDocument["_id"];
+  name: string;
+  email: string;
+  phone: string;
+}
+
+export interface ContactDocument extends ContactInput, mongoose.Document {
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export default mongoose.model<ContactDocument>("Contact", contactSchema);

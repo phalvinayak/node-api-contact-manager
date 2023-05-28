@@ -21,4 +21,15 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("User", userSchema);
+export interface UserInput {
+  username: string;
+  email: string;
+  password: string;
+}
+
+export interface UserDocument extends UserInput, mongoose.Document {
+  createdAt: Date;
+  modifiedAt: Date;
+}
+
+export default mongoose.model<UserDocument>("User", userSchema);

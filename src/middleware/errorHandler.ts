@@ -1,5 +1,5 @@
 import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
-import { HTTP_STATUS } from "@src/models/enum/httpError.enmu";
+import { HTTP_STATUS } from "@models/enum/httpError.enmu";
 
 type CustomError = {
   message?: string;

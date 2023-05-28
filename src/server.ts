@@ -9,12 +9,11 @@ connectDb();
 const app: Application = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(router);
+app.use("/api", router);
 app.use(errorHandler);
-app.get("/", (_req: Request, res: Response): void => {
-  res
-    .status(200)
-    .json({ message: "Hello Typescript with Node.js! with live changes yay!" });
+
+app.get("/healthcheck", (_req: Request, res: Response): void => {
+  res.sendStatus(200);
 });
 
 app.listen(PORT, (): void => {

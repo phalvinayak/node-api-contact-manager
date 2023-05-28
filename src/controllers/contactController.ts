@@ -1,25 +1,22 @@
+import ContactModel from "@models/schema/contactModel";
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
-import ContactModel from "@src/models/schema/contactModel";
-import { AuthRequest } from "@src/models/types/types";
 
 // @desc Get all contacts
 // @route GET /api/contacts
 // @access private
-const getAllContact = asyncHandler(async (req: AuthRequest, res: Response) => {
-  // @TODO need to find a way make sure, AuthRequest says user object will be available on req
-  // Right now its a optional
-  const contacts = await ContactModel.find({ user_id: req.user!.id });
+const getAllContact = asyncHandler(async (_req: Request, res: Response) => {
+  const contacts = await ContactModel.find({ user_id: res.locals.user.id });
   res.status(200).json(contacts);
 });
 
 // @desc Get contact
 // @route GET /api/contacts/:id
 // @access private
-const getContact = asyncHandler(async (req: AuthRequest, res: Response) => {
+const getContact = asyncHandler(async (req: Request, res: Response) => {
   const contact = await ContactModel.find({
     _id: req.params.id,
-    user_id: req.user!.id,
+    user_id: res.locals.user.id,
   });
   if (!contact?.length) {
     res.status(404);
@@ -31,7 +28,7 @@ const getContact = asyncHandler(async (req: AuthRequest, res: Response) => {
 // @desc Create contact
 // @route POST /api/contacts
 // @access private
-const createContact = asyncHandler(async (req: AuthRequest, res: Response) => {
+const createContact = asyncHandler(async (req: Request, res: Response) => {
   const { name, email, phone } = req.body;
   console.log("The request body is", req.body);
   if (!name || !email || !phone) {
@@ -42,7 +39,7 @@ const createContact = asyncHandler(async (req: AuthRequest, res: Response) => {
     name,
     email,
     phone,
-    user_id: req.user!.id,
+    user_id: res.locals.user.id,
   });
   res.status(201).json(contact);
 });
@@ -50,10 +47,10 @@ const createContact = asyncHandler(async (req: AuthRequest, res: Response) => {
 // @desc Update contact
 // @route PUT /api/contacts/:id
 // @access private
-const updateContact = asyncHandler(async (req: AuthRequest, res: Response) => {
+const updateContact = asyncHandler(async (req: Request, res: Response) => {
   const contact = await ContactModel.find({
     _id: req.params.id,
-    user_id: req.user!.id,
+    user_id: res.locals.user.id,
   });
   if (!contact?.length) {
     res.status(404);
@@ -70,10 +67,10 @@ const updateContact = asyncHandler(async (req: AuthRequest, res: Response) => {
 // @desc Delete contact
 // @route DELETE /api/contacts
 // @access private
-const deleteContact = asyncHandler(async (req: AuthRequest, res: Response) => {
+const deleteContact = asyncHandler(async (req: Request, res: Response) => {
   const contact = await ContactModel.find({
     _id: req.params.id,
-    user_id: req.user!.id,
+    user_id: res.locals.user.id,
   });
   if (!contact.length) {
     res.status(404);
@@ -84,9 +81,9 @@ const deleteContact = asyncHandler(async (req: AuthRequest, res: Response) => {
 });
 
 export {
+  createContact,
+  deleteContact,
   getAllContact,
   getContact,
-  createContact,
   updateContact,
-  deleteContact,
 };

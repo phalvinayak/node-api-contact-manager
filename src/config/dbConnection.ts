@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { CONNECTION_URL } from "@src/config/evn.config";
+import { CONNECTION_URL } from "@config/evn.config";
 
 const connectDb = async () => {
   try {

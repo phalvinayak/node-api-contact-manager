@@ -4,7 +4,7 @@ import userRouter from "@src/routes/userRouter";
 
 const router = Router();
 
-router.use("/api/contacts", contactRouter);
-router.use("/api/users", userRouter);
+router.use("/contacts", contactRouter);
+router.use("/users", userRouter);
 
 export default router;

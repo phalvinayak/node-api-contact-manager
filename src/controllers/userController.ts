@@ -1,10 +1,10 @@
+import { ACCESS_TOKEN_SECRET, ACCESS_TOKEN_TTL } from "@config/evn.config";
+import UserModel from "@models/schema/userModel";
+import { User } from "@models/types/types";
+import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
-import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import UserModel from "@src/models/schema/userModel";
-import { AuthRequest, User } from "@src/models/types/types";
-import { ACCESS_TOKEN_SECRET } from "@src/config/evn.config";
 
 // @desc Register User
 // @route POST /api/users/register
@@ -61,7 +61,7 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
         },
       },
       ACCESS_TOKEN_SECRET,
-      { expiresIn: "15m" }
+      { expiresIn: ACCESS_TOKEN_TTL }
     );
     res.json({ accessToken });
   } else {
@@ -73,8 +73,8 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
 // @desc Current User
 // @route GET /api/users/current
 // @access private
-const currentUser = asyncHandler(async (req: AuthRequest, res: Response) => {
-  res.json(req.user);
+const currentUser = asyncHandler(async (req: Request, res: Response) => {
+  res.json(res.locals.user);
 });
 
-export { registerUser, loginUser, currentUser };
+export { currentUser, loginUser, registerUser };

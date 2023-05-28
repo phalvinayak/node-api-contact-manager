@@ -1,11 +1,10 @@
-import { ACCESS_TOKEN_SECRET } from "@src/config/evn.config";
-import { Request, Response, NextFunction } from "express";
+import { ACCESS_TOKEN_SECRET } from "@config/evn.config";
+import { NextFunction, Request, Response } from "express";
 import asyncHandler from "express-async-handler";
-import jwt, { JwtPayload } from "jsonwebtoken";
-import { AuthRequest } from "@src/models/types/types";
+import jwt from "jsonwebtoken";
 
 const validateToken = asyncHandler(
-  async (req: AuthRequest, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     let token = getAuthToken(req);
     if (token) {
       jwt.verify(token, ACCESS_TOKEN_SECRET, (err, decoded) => {
@@ -15,7 +14,7 @@ const validateToken = asyncHandler(
         }
         if (typeof decoded === "object") {
           // console.log(decoded);
-          req.user = decoded.user;
+          res.locals.user = decoded.user;
           next();
         } else {
           res.status(401);
