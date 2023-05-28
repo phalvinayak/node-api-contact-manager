@@ -16,6 +16,12 @@ app.get("/healthcheck", (_req: Request, res: Response): void => {
   res.sendStatus(200);
 });
 
+app.get("/", (_req: Request, res: Response): void => {
+  res.send(
+    "<h1 style='text-align:center;margin-top:99px'>Contact Manager ;)</h1>"
+  );
+});
+
 app.listen(PORT, (): void => {
   console.log(`Server Running here 👉 http://localhost:${PORT}`);
 });
