@@ -44,5 +44,9 @@
     "tsc-alias": "^1.8.6",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
+  },
+  "engines": {
+    "node": ">=18.13.0",
+    "npm": ">=9.4.0"
   }
 }
